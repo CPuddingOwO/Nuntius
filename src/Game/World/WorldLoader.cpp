@@ -38,12 +38,7 @@ namespace nt::world {
     }
 
     void WorldLoader::saveWorld(const char *path) {
-
-    }
-
-    void WorldLoader::loadRoom() {
-        auto room = ObjectRegistry::Get<Room>();
-        // TODO: load room
+        // TODO: save Data
     }
 }
 

@@ -12,7 +12,6 @@ namespace nt::world {
     public:
         void loadWorld(const char* path);
         void saveWorld(const char* path);
-        void loadRoom();
     private:
         std::vector<World> worlds;
     };
