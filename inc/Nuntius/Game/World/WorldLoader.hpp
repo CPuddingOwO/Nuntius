@@ -10,8 +10,8 @@
 namespace nt::world {
     class NT_API WorldLoader {
     public:
-        void loadWorld(const char* path);
-        void saveWorld(const char* path);
+        void uploadTileCollection(nlohmann::json& data);
+        void uploadMapData(nlohmann::json& data);
     private:
         std::vector<World> worlds;
     };
