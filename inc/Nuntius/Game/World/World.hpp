@@ -9,5 +9,6 @@ namespace nt::world {
     public:
         void setWorldByJson(nlohmann::json& data);
         nlohmann::json fullWorld;
+        nlohmann::json tiles;
     };
 }
