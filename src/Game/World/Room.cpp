@@ -20,16 +20,18 @@ namespace nt::world {
     }
 
     void Room::swapRoom(const RoomInfo& roomInfo) {
+        auto m_world = ObjectRegistry::Get<World>();
         rID = roomInfo.roomID;
         auto dst = split(roomInfo.roomID, '.');
         auto r = ObjectRegistry::Get<World>()->fullWorld[dst[0]][dst[1]][dst[2]][dst[3]];
-        for (auto& tile : r["tiles"]) {
-            TileInfo info;
-            info.pos.x = tile["position"][0];
-            info.pos.y = tile["position"][1];
-            info.pos.z = tile["position"][2];
-            auto t = Tile(info);
-            roomTiles.push_back(t);
+        for (int z = 0; z < r["tiles"].size(); z++) {
+            for (int y = 0; y < r["tiles"][z].size(); y++) {
+                for (int x = 0; x < r["tiles"][z][y].size(); x++) {
+                    auto tID = r["tiles"][z][y][x].get<int>();
+                    TileInfo info = {tID,m_world->tiles[tID]["texID"] , {x, y, z}};
+                    roomTiles.emplace_back(info);
+                }
+            }
         }
     }
 
