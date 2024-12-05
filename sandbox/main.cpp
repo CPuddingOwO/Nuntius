@@ -8,6 +8,7 @@
 
 #include <spdlog/spdlog.h>
 #include <csignal>
+#include "Nuntius/FileServer/JsonFileServer.hpp"
 
 bool isRunning = false;
 
@@ -43,7 +44,15 @@ int main(int argc, char* argv[]) {
             nt::ObjectRegistry::Provide(room);
 
             auto loader = std::make_shared<nt::world::WorldLoader>();
-            loader->loadWorld("res/map/world.json");
+            nt::fileserver::JsonFileServer jsonFileServer;
+            nlohmann::json meta, map, tile;
+            std::vector<std::string> worlds = {"world1"};
+            int currentWorld = 0;
+            jsonFileServer.read(std::format("res/map/{}/meta.json", worlds[currentWorld]).c_str(), meta);
+            jsonFileServer.read(std::format("res/map/{}/{}", worlds[currentWorld],meta["map"].get<std::string>()).c_str(), map);
+            jsonFileServer.read(std::format("res/map/{}/{}",worlds[currentWorld], meta["tile"].get<std::string>()).c_str(), tile);
+            loader->uploadTileCollection(tile);
+            loader->uploadMapData(map);
             nt::ObjectRegistry::Provide(loader);
             spdlog::info("Current Room: {}", room->rID);
         }
