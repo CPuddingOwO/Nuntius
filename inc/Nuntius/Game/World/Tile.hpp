@@ -3,11 +3,13 @@
 #include <Nuntius/API.hpp>
 #include <Nuntius/Vecturm.hpp>
 
+#include <string>
+
 namespace nt::world {
 
     struct NT_API TileInfo {
         int tileID;
-        int texID;
+        std::string texID;
         nt::vec::vec3<int> pos;
     };
 
