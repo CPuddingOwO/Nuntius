@@ -25,6 +25,7 @@ add_subdirectory(ext/sdl_image)
 add_subdirectory(ext/sdl_mixer)
 # find_package(...)
 find_package(spdlog)
+find_package(stb)
 find_package(nlohmann_json)
 #find_package(flecs)
 
@@ -49,6 +50,7 @@ set(SRC_CODE
         inc/Nuntius/Vecturm.hpp
         src/Game/Resource/ResourceLoader.cpp
         src/Game/Resource/Types.cpp
+        src/FileServer/ImageFileServer.cpp
 )
 
 set(SANDBOX_CODE
@@ -72,6 +74,7 @@ target_include_directories(Nuntius PUBLIC
 target_link_libraries(Nuntius PUBLIC
         nlohmann_json::nlohmann_json
         spdlog::spdlog
+        stb::stb
         flecs::flecs
         SDL3::SDL3-shared
         SDL3_mixer-shared
