@@ -2,7 +2,7 @@
 #include <Nuntius/API.hpp>
 
 namespace nt::fileserver {
-    template <typename T>
+    template<typename T>
     class NT_API IFileServer {
     public:
         virtual ~IFileServer() = default;
