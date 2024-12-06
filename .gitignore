@@ -1,2 +1,2 @@
-/ext/flecs/
-/build/x64
+/ext/flecs/*
+/build/x64/*
