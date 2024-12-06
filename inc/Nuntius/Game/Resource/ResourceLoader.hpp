@@ -11,17 +11,17 @@ namespace nt::res {
     class NT_API ResourceLoader {
     public:
         template<typename T>
-        void Add(const std::string& id, const std::string& path) {
+        void Add(const types::ResourceInfo& info) {
             std::shared_ptr<T> resource = std::make_shared<T>();
-            resource->Load(path);
-            resources.emplace(id, resource);
+            resource.load(info.path);
+            resources.emplace(info.id, resource);
         }
 
         template<typename T>
-        void Add(const types::ResourceInfo& info) {
+        void Add(const std::string& id, const std::string& path) {
             std::shared_ptr<T> resource = std::make_shared<T>();
-            resource->Load(info.path);
-            resources.emplace(info.id, resource);
+            resource->load(path);
+            resources.emplace(id, resource);
         }
 
         std::shared_ptr<types::Resource> Get(const std::string& id) {

@@ -6,7 +6,6 @@
 #include <SDL3_image/SDL_image.h>
 
 namespace nt::types {
-
     enum class ResourceType {
         eInvalid,
         eTexture,
@@ -27,7 +26,8 @@ namespace nt::types {
     };
     class NT_API Texture : public Resource {
     public:
-        SDL_Texture* texture = nullptr;
+        SDL_Texture* texture;
+        int w, h;
         bool load(const std::string& path) override;
     };
 
