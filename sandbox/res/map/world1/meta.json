@@ -1,5 +1,27 @@
 {
   "name": "world1",
   "map": "map.json",
-  "tile": "tile.json"
+  "tile": "tile.json",
+  "struct": {
+    "name": "world1",
+    "regions": [
+      {
+        "name": "region1",
+        "subregions": [
+          {
+            "name": "subregion1",
+            "rooms": [
+              {
+                "name": "room1",
+                "isStartRoom": true
+              },
+              {
+                "name": "room2"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }
