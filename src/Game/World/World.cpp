@@ -3,7 +3,11 @@
 namespace nt::world {
 
     void World::setWorldByJson(nlohmann::json &data) {
-        fullWorld = data;
+        full = data;
+    }
+
+    void World::setWorldMetaByJson(nlohmann::json &data) {
+        meta = data;
     }
 
 }

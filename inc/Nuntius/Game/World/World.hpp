@@ -8,7 +8,9 @@ namespace nt::world {
     class NT_API World {
     public:
         void setWorldByJson(nlohmann::json& data);
-        nlohmann::json fullWorld;
+        void setWorldMetaByJson(nlohmann::json& data);
+        nlohmann::json full;
+        nlohmann::json meta;
         nlohmann::json tiles;
     };
 }

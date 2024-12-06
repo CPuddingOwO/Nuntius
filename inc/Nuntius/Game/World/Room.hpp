@@ -13,6 +13,7 @@ namespace nt::world {
 
     class NT_API Room {
     public:
+        std::vector<Tile> getTailGrid() { return tailGrid; }
         void setStartRoom(RoomInfo roomInfo);
         bool findRoom(const RoomInfo& roomInfo);
         void swapRoom(const RoomInfo& roomInfo);
@@ -20,6 +21,6 @@ namespace nt::world {
         std::string rID;
     private:
         RoomInfo room;
-        std::vector<Tile> roomTiles;
+        std::vector<Tile> tailGrid;
     };
 }

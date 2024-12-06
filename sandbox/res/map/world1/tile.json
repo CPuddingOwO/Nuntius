@@ -2,13 +2,15 @@
   "tiles": [
     {
       "name": "air",
-      "tID": "test.air",
       "texID": "test.air"
     },
     {
-      "name": "test",
-      "tID": "test.1",
-      "texID": "test.1"
+      "name": "floor",
+      "texID": "test.floor"
+    },
+    {
+      "name": "flower",
+      "texID": "test.flower"
     }
   ]
 }
