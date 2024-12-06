@@ -101,6 +101,9 @@ int main(int argc, char* argv[]) {
                     throw std::runtime_error("Error: SDL_CreateWindow(): " + std::string(SDL_GetError()));
                 }
                 SDL_DestroyProperties(props);
+                SDL_Surface *surface = IMG_Load("res/images/logo.png");
+                SDL_SetWindowIcon(wp->window, surface);
+                SDL_DestroySurface(surface);
             }
 
             {
@@ -118,6 +121,7 @@ int main(int argc, char* argv[]) {
 
             SDL_SetWindowPosition(wp->window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 
+            SDL_SetRenderScale(rp->renderer, 3.0, 3.0);
             SDL_ShowWindow(wp->window);
         }
 
@@ -127,9 +131,9 @@ int main(int argc, char* argv[]) {
 
             std::vector<nt::types::ResourceInfo> resources = {
                     {nt::types::ResourceType::eTexture, "test.logo", "res/images/logo.png"},
-                    {nt::types::ResourceType::eTexture, "test.air", "res/images/logo.png"},
-                    {nt::types::ResourceType::eTexture, "test.block", "res/images/test/floor.png"},
-                    {nt::types::ResourceType::eTexture, "test.flower", "res/images/test/flower.png"}
+                    {nt::types::ResourceType::eTexture, "test.air", "res/images/air.png"},
+                    {nt::types::ResourceType::eTexture, "test.floor", "res/images/floor.png"},
+                    {nt::types::ResourceType::eTexture, "test.flower", "res/images/flower.png"}
             };
             for (const auto& res : resources) {
                 loader->Add<nt::types::Texture>(res.id, res.path);
@@ -202,6 +206,8 @@ int main(int argc, char* argv[]) {
                     SDL_FRect dst = {(float)(tile.info.pos.x*texture->w), (float)(tile.info.pos.y*texture->h), (float)(tile.info.pos.x + texture->w), (float)(tile.info.pos.y + texture->h)};
                     SDL_FRect src = {0, 0, (float)texture->w, (float)texture->h};
                     SDL_RenderTexture(rp->renderer, texture->texture, &src, &dst );
+                    SDL_SetRenderDrawColor(rp->renderer, 255, 0, 0, 255);
+                    SDL_RenderRect(rp->renderer, &dst);
                 }
             }
 
