@@ -4,6 +4,10 @@ project(Nuntius)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(FLECS_SHARED ON)
+set(SDLIMAGE_BUILD_SHARED_LIBS ON)
+set(SDLMIXER_BUILD_SHARED_LIBS ON)
+set(SDL_SHARED ON)
+set(SDL_STATIC OFF)
 
 # Set libraries
 
@@ -16,6 +20,9 @@ list(APPEND CMAKE_MODULE_PATH "${CatBirdRemake_SOURCE_DIR}/cmake")
 
 # add_subdirectory(...)
 add_subdirectory(ext/flecs)
+add_subdirectory(ext/sdl)
+add_subdirectory(ext/sdl_image)
+add_subdirectory(ext/sdl_mixer)
 # find_package(...)
 find_package(spdlog)
 find_package(nlohmann_json)
@@ -40,6 +47,8 @@ set(SRC_CODE
         src/StringEx.cpp
         src/Game/World/Tile.cpp
         inc/Nuntius/Vecturm.hpp
+        src/Game/Resource/ResourceLoader.cpp
+        src/Game/Resource/Types.cpp
 )
 
 set(SANDBOX_CODE
@@ -48,7 +57,7 @@ set(SANDBOX_CODE
 
 # Library
 add_library(Nuntius SHARED ${SRC_CODE})
-install(TARGETS Nuntius
+install(TARGETS Nuntius SDL3-shared SDL3_image-shared SDL3_mixer-shared
         LIBRARY DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
@@ -64,6 +73,9 @@ target_link_libraries(Nuntius PUBLIC
         nlohmann_json::nlohmann_json
         spdlog::spdlog
         flecs::flecs
+        SDL3::SDL3-shared
+        SDL3_mixer-shared
+        SDL3_image-shared
 )
 
 # Sandbox
