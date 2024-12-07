@@ -1,7 +1,6 @@
 [submodule "ext/flecs"]
 	path = ext/flecs
 	url = https://github.com/SanderMertens/flecs.git
-
 [submodule "ext/sdl"]
 	path = ext/sdl
 	url = https://github.com/libsdl-org/SDL.git
