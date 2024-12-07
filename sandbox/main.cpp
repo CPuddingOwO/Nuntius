@@ -35,9 +35,11 @@ int main(int argc, char* argv[]) {
             auto windowProp = std::make_shared<nt::props::WindowProperties>();
             auto rendererProp = std::make_shared<nt::props::RendererProperties>();
 
-            windowProp->width = 1280;
-            windowProp->height = 720;
+            windowProp->width = 1248;
+            windowProp->height = 768;
             windowProp->title = "Nuntius Sandbox";
+
+            rendererProp->isVsync = true;
 
             nt::ObjectRegistry::Provide(windowProp);
             nt::ObjectRegistry::Provide(rendererProp);
@@ -121,7 +123,7 @@ int main(int argc, char* argv[]) {
 
             SDL_SetWindowPosition(wp->window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 
-            SDL_SetRenderScale(rp->renderer, 3.0, 3.0);
+            SDL_SetRenderScale(rp->renderer, 1.0, 1.0);
             SDL_ShowWindow(wp->window);
         }
 
@@ -161,12 +163,17 @@ int main(int argc, char* argv[]) {
             nt::ObjectRegistry::Provide(loader);
             spdlog::info("Current Room: {}", room->rID);
 
-            for (int i = 0; i < 25; i+= 5) {
-                for (int j = 0; j < 5; j++) {
-                    std::cout << room->getTailGrid()[i+j].info.tileID << " ";
+            std::string t_out = "";
+            for (int i = 0; i < 936; i+= 39) {
+                for (int j = 0; j < 39; j++) {
+                    int t = room->getTailGrid()[i+j].info.tileID;
+                    if (t == 0) t_out += " ";
+                    else if (t == 1) t_out += "#";
+                    else t_out += "O";
                 }
-                std::cout << std::endl;
+                t_out += "\n";
             }
+            std::cout << t_out;
         }
     }
 
@@ -203,11 +210,11 @@ int main(int argc, char* argv[]) {
                 for (const auto& tile : room->getTailGrid()) {
                     auto t = world->tiles[tile.info.tileID];
                     auto* texture = dynamic_cast<nt::types::Texture*>(res->Get(t["texID"]).get());
-                    SDL_FRect dst = {(float)(tile.info.pos.x*texture->w), (float)(tile.info.pos.y*texture->h), (float)(tile.info.pos.x + texture->w), (float)(tile.info.pos.y + texture->h)};
+                    SDL_FRect dst = {(float)(tile.info.pos.x*texture->w), (float)(tile.info.pos.y*texture->h), (float)(texture->w), (float)(texture->h)};
                     SDL_FRect src = {0, 0, (float)texture->w, (float)texture->h};
                     SDL_RenderTexture(rp->renderer, texture->texture, &src, &dst );
-                    SDL_SetRenderDrawColor(rp->renderer, 255, 0, 0, 255);
-                    SDL_RenderRect(rp->renderer, &dst);
+//                    SDL_SetRenderDrawColor(rp->renderer, 55, 55, 0, 255);
+//                    SDL_RenderRect(rp->renderer, &dst);
                 }
             }
 
